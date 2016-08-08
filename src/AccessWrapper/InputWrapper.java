@@ -7,9 +7,9 @@ import java.io.FileReader;
 
 public class InputWrapper {
 
-	public String path = "D:\\My_Documents\\Java\\UberDataChallenge\\resource\\logins.json";
+//	public String path = "D:\\My_Documents\\Java\\UberDataChallenge\\resource\\logins.json";
 	
-	public String getString(){
+	public String getString(String path){
 		BufferedReader br;
 	
 		StringBuilder sb = new StringBuilder();
@@ -18,7 +18,7 @@ public class InputWrapper {
 			br = new BufferedReader(new FileReader(path));
 
 		    String line = br.readLine();
-
+		    //System.out.println(line);
 		    while (line != null) {
 		        sb.append(line);
 		        line = br.readLine();

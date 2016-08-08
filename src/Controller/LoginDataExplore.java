@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import AccessWrapper.CSVWriter;
 import AccessWrapper.InputWrapper;
+import Constant.Path;
 import Model.LoginCounts;
 import Model.TimeInterval;
 
@@ -26,7 +27,7 @@ public class LoginDataExplore {
 	
 	public void Explore() throws JSONException, IOException{
 		InputWrapper wrapper = new InputWrapper();
-		String input = wrapper.getString();
+		String input = wrapper.getString(Path.task1Path);
 		
 		JSONObject jsonObject = new JSONObject(input);
 		JSONArray jsonArray = (JSONArray)jsonObject.get("login_time");
