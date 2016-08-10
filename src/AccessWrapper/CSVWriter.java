@@ -45,25 +45,12 @@ public class CSVWriter {
 			bw.close();
 		}		
 	}
-/*
- * 	private String city;
-	private Integer trips_in_first_30_days;
-	private DateTime signup_date;
-	private Double avg_rating_of_driver;
-	private Double avg_surge;
-	private DateTime last_trip_date;
-	private String phone;
-	private Double surge_pct;
-	private Boolean uber_black_user;
-	private Double weekday_pct;
-	private Double avg_dist;
-	private Double avg_rating_by_driver;
- * */
-	public void UberDataWriter(List<UberData> uberDataList) throws IOException{
+
+	public void UberDataWriter(List<UberData> uberDataList, String inputPath) throws IOException{
 		
 		BufferedWriter bw = null;
 		try {
-			bw = new BufferedWriter(new FileWriter(Path.uberDataFilename));
+			bw = new BufferedWriter(new FileWriter(inputPath));
 		
 			StringBuilder title = new StringBuilder();
 			title.append(UberDataItems.CITY).append(Delimiter.COMMA);
@@ -79,8 +66,9 @@ public class CSVWriter {
 			title.append(UberDataItems.AVG_DIST).append(Delimiter.COMMA);
 			title.append(UberDataItems.AVG_RATING_BY_DRIVER).append(Delimiter.COMMA);
 			title.append(UberDataItems.CUSTOMERLIFETIME).append(Delimiter.COMMA);
-			title.append(UberDataItems.LEVEL1RETENTION);
-				
+			title.append(UberDataItems.RETENTION).append(Delimiter.COMMA);
+			title.append(UberDataItems.ACTIVE);	
+			
 			bw.write(title.toString());
 			bw.newLine();
 		
@@ -111,8 +99,11 @@ public class CSVWriter {
 				curLine.append(uberDataList.get(i).getAvg_rating_by_driver().toString()).append(Delimiter.COMMA);
 				curLine.append(uberDataList.get(i).getCustomerLifeTime().toString()).append(Delimiter.COMMA);
 				
-				Integer level1Retention = uberDataList.get(i).getLevel1Retention() ? 1 : 0;			
-				curLine.append(level1Retention.toString());
+				Integer retention = uberDataList.get(i).getRetention() ? 1 : 0;			
+				curLine.append(retention.toString()).append(Delimiter.COMMA);
+				
+				Integer isActive = uberDataList.get(i).getIsActive() ? 1 : 0;			
+				curLine.append(isActive.toString());
 				
 				bw.write(curLine.toString());
 				bw.newLine();
@@ -125,31 +116,31 @@ public class CSVWriter {
 			bw.close();
 		}		
 	}
-	private int getCityNumber(String city){
-		int cityNumber = -1;
+	private Integer getCityNumber(String city){
+		Integer cityNumber = null;
 		
 		if(city.equals(UberDataItems.ASTAPOR)){
-			cityNumber = 0;
+			cityNumber = -1;
 		}else if(city.equals(UberDataItems.WINTERFELL)){
-			cityNumber = 1;
+			cityNumber = 0;
 		}else if(city.equals(UberDataItems.KINGSLANDING)){
-			cityNumber = 2;
+			cityNumber = 1;
 		}
 		return cityNumber;
 	}
 	
-	private int getPhoneCode(String phone){
-		int phoneCode = -1;
+	private Integer getPhoneCode(String phone){
+		Integer phoneCode = null;
 		
 		if(phone.equals(UberDataItems.IPHONE)){
-			phoneCode = 0;
+			phoneCode = -1;
 		}else if(phone.equals(UberDataItems.ANDROID)){
-			phoneCode = 1;
+			phoneCode = 0;
 		}else {
 			/*
 			 * phone = null
 			 * */
-			phoneCode = 2;
+			phoneCode = 1;
 		}
 		return phoneCode;
 	}

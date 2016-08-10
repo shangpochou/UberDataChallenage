@@ -43,15 +43,16 @@ public class PredictiveModelingDataExplore {
 			
 			curDataPoint.setCity(jsonObject.getString(UberDataItems.CITY));
 			
-			//cities.add(curDataPoint.getCity());
 			
 			curDataPoint.setTrips_in_first_30_days(jsonObject.getInt(UberDataItems.TRIP_IN_FIRST_30_DAYS));
 			
 			DateTime signupDate = formatter.parseDateTime(jsonObject.getString(UberDataItems.SIGNUP_DATES));
 			curDataPoint.setSignup_date(signupDate);
-
+		
 			curDataPoint.setAvg_rating_of_driver(jsonObject.getDouble(UberDataItems.AVG_RATING_OF_DRIVER));
+						
 			curDataPoint.setAvg_surge(jsonObject.getDouble(UberDataItems.AVG_SURGE));
+			
 			
 			DateTime lastTripDate = formatter.parseDateTime(jsonObject.getString(UberDataItems.LAST_TRIP_DATE));
 			curDataPoint.setLast_trip_date(lastTripDate);
@@ -73,17 +74,24 @@ public class PredictiveModelingDataExplore {
 			
 			curDataPoint.setCustomerLifeTime(customerLifeTime);
 			/*
+			 * Calculate active
+			 * */
+			if((curDataPoint.getLast_trip_date()).getMonthOfYear() == 6){
+				curDataPoint.setIsActive(true);
+			}else{
+				curDataPoint.setIsActive(false);
+			}
+			
+			
+			/*
 			 * Calculate retention
 			 * */
 			if(curDataPoint.getTrips_in_first_30_days() > 0){
-				curDataPoint.setLevel1Retention(true);
+				curDataPoint.setRetention(true);
 			}else{
-				curDataPoint.setLevel1Retention(false);
+				curDataPoint.setRetention(false);
 			}
-			
-			if(!curDataPoint.getLevel1Retention()){
-				System.out.println(jsonArray.get(i));
-			}
+					
 			
 			uberDataList.add(curDataPoint);
 		}
@@ -92,11 +100,16 @@ public class PredictiveModelingDataExplore {
 		//getCohort(uberDataList);
 		//System.out.println(uberDataList.size());
 		CSVWriter csvWriter = new CSVWriter();
-		csvWriter.UberDataWriter(uberDataList);
+		csvWriter.UberDataWriter(uberDataList, Path.uberDataFilename);
 		
-		for (String s : cities) {
-		    System.out.println(s);
+		List<UberData> uberDataCohortList = new ArrayList<UberData>();
+		
+		for(int i = 0; i < uberDataList.size(); i++){
+			if(uberDataList.get(i).getRetention() && !Double.isNaN(uberDataList.get(i).getAvg_rating_of_driver())){
+				uberDataCohortList.add(uberDataList.get(i));
+			}
 		}
+		csvWriter.UberDataWriter(uberDataCohortList, Path.uberCohortDataFilename);
 	}
 	
 	public void getCohort(List<UberData> uberDataList){

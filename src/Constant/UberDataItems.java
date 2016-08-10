@@ -17,9 +17,9 @@ public class UberDataItems{
 	
 	public static final String CUSTOMERLIFETIME = "customer_life_time";
 	
-	public static final String LEVEL1RETENTION = "level1_retention";
-	public static final String LEVEL2RETENTION = "level2_retention";
-	public static final String LEVEL3RETENTION = "level3_retention";
+	public static final String RETENTION = "retention";
+	
+	public static final String ACTIVE = "active";
 	
 	public static final String ASTAPOR = "Astapor";
 	public static final String WINTERFELL = "Winterfell";
@@ -27,5 +27,9 @@ public class UberDataItems{
 
 	public static final String IPHONE = "iPhone";
 	public static final String ANDROID = "Android";
+	/*
+	 * Days of 6 months.
+	 * */
+	public static final Integer SIXMONTHS = 183;
 	
 }

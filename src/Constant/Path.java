@@ -8,6 +8,7 @@ public class Path {
 
 	public static final String logincountsFilename = "D:\\My_Documents\\Java\\UberDataChallenge\\resource\\logincounts2.csv";
 	
-	public static final String uberDataFilename = "D:\\My_Documents\\Java\\UberDataChallenge\\resource\\uberData.csv";
+	public static final String uberDataFilename = "D:\\My_Documents\\Java\\UberDataChallenge\\resource\\uberDataVer1.csv";
 	
+	public static final String uberCohortDataFilename = "D:\\My_Documents\\Java\\UberDataChallenge\\resource\\uberCohortData.csv";
 }

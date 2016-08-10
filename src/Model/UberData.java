@@ -21,39 +21,26 @@ public class UberData {
 	/*
 	 * If trip_in_first_30days > 0
 	 * */
-	private Boolean level1Retention;
-	/*
-	 * If trip_in_first_30days > 0 && avg_dist > constant
-	 * */
-	private Boolean level2Retention;
-	/*
-	 * If trip_in_first_30days > 0 && avg_dist > constant && customerLifeTime > constant
-	 * */
-	private Boolean level3Retention;
+	private Boolean Retention;
+	
+	private Boolean isActive;
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
 	public Integer getCustomerLifeTime() {
 		return customerLifeTime;
 	}
 	public void setCustomerLifeTime(Integer customerLifeTime) {
 		this.customerLifeTime = customerLifeTime;
 	}
-	
-	public Boolean getLevel1Retention() {
-		return level1Retention;
+	public Boolean getRetention() {
+		return Retention;
 	}
-	public void setLevel1Retention(Boolean level1Retention) {
-		this.level1Retention = level1Retention;
-	}
-	public Boolean getLevel2Retention() {
-		return level2Retention;
-	}
-	public void setLevel2Retention(Boolean level2Retention) {
-		this.level2Retention = level2Retention;
-	}
-	public Boolean getLevel3Retention() {
-		return level3Retention;
-	}
-	public void setLevel3Retention(Boolean level3Retention) {
-		this.level3Retention = level3Retention;
+	public void setRetention(Boolean retention) {
+		Retention = retention;
 	}
 	public String getCity() {
 		return city;
