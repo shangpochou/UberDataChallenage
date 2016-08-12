@@ -1,4 +1,4 @@
-Evaluate <- function(inputFittedResults, inputTestSet){
+EvaluateSVM <- function(predicted, test){
   
   numOfCorrect = 0
   numOfWrong = 0
@@ -7,16 +7,13 @@ Evaluate <- function(inputFittedResults, inputTestSet){
   falsePositives = 0
   falseNegtives = 0
   actualPositive = 0
-  
-  NROW(inputFittedResults)
-  NROW(inputTestSet)
-  numOfNa = 0
-  for(i in 1: NROW(inputFittedResults)){
-    if(!is.na(inputFittedResults[i] )){
-      if(inputFittedResults[i] == inputTestSet$active[i]){
+ 
+  for(i in 1: NROW(predicted)){
+
+      if(predicted[i] == test[i]){
         numOfCorrect <- numOfCorrect+1
         
-        if(inputTestSet$active[i] == 1 && inputFittedResults[i]== 1){
+        if(predicted[i] == 1 && test[i]== 1){
           truePositives <- truePositives+1
         }
         
@@ -24,16 +21,13 @@ Evaluate <- function(inputFittedResults, inputTestSet){
         
         numOfWrong <- numOfWrong+1
         
-        if(inputTestSet$active[i] == 0 &&¡@inputFittedResults[i] == 1){
+        if(test[i] == 0 &&¡@predicted[i] == 1){
           falsePositives <- falsePositives+1
         }else{
           falseNegtives<- falseNegtives+1
         }
       }  
-    }else{
-      numOfNa <- numOfNa+1
     }
-  }
 
   acc= numOfCorrect / (numOfWrong+numOfCorrect)
   

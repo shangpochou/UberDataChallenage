@@ -16,15 +16,12 @@ import Model.LoginCounts;
 import Model.UberData;
 
 public class CSVWriter {
-
-//	private String logincountsFilename = "D:\\My_Documents\\Java\\UberDataChallenge\\resource\\logincounts2.csv";
-//	private String uberDataFilename = "D:\\My_Documents\\Java\\UberDataChallenge\\resource\\uberData.csv";
-//	
-	public void LoginDataCountWriter(List<LoginCounts> loginCountsList) throws IOException{
+	
+	public void LoginDataCountWriter(List<LoginCounts> loginCountsList, String fileName) throws IOException{
 		
 		BufferedWriter bw = null;
 		try {
-			bw = new BufferedWriter(new FileWriter(Path.logincountsFilename));
+			bw = new BufferedWriter(new FileWriter(fileName));
 		
 			String title = "Time,Counts";
 			bw.write(title);

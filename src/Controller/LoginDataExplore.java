@@ -17,7 +17,6 @@ import AccessWrapper.CSVWriter;
 import AccessWrapper.InputWrapper;
 import Constant.Path;
 import Model.LoginCounts;
-import Model.TimeInterval;
 
 public class LoginDataExplore {
 
@@ -39,7 +38,6 @@ public class LoginDataExplore {
 		for(int i = 0; i < jsonArray.length(); i++){
 			DateTime curDateTime = formatter.parseDateTime((String) jsonArray.get(i));
 			this.loginData.add(curDateTime);
-//			System.out.println(jsonArray.get(i));
 		}
 	
 		this.counts = initCounts();
@@ -66,20 +64,13 @@ public class LoginDataExplore {
 		    
 		    timeCounter = timeCounter.plusMinutes(15);
 		    
-		    int EndHour = timeCounter.getHourOfDay();
-		    int EndMin = timeCounter.getMinuteOfHour();
-		    
 		    StringBuilder sb = new StringBuilder();
-		    //sb.append(StartHour).append(":").append(StartMin).append("-").append(EndHour).append(":").append(EndMin);
 		    sb.append(String.format("%02d", StartHour)).append(String.format("%02d", StartMin));
 		    loginCountsList.add(new LoginCounts(sb.toString(), value));
-		   
-//		    System.out.println(key + " " + value);
-//		    System.out.println(sb.toString() + " " + value);
 		}
 		
 		CSVWriter csvWriter = new CSVWriter();
-		csvWriter.LoginDataCountWriter(loginCountsList);
+		csvWriter.LoginDataCountWriter(loginCountsList, Path.logincountsFilename);
 	}
 	
 	public Map<Integer, Integer>initCounts(){
@@ -89,16 +80,5 @@ public class LoginDataExplore {
 			counts.put(i, 0);
 		}
 		return counts;
-	}
-	
-	
-	public ArrayList<TimeInterval> getTimeIntervalList(){
-		
-		ArrayList<TimeInterval> timeInterval = new ArrayList<TimeInterval>();
-		
-		for(int i = 0; i < 96; i++){
-			System.out.println(i*15 + " " + ((i+1)*15));
-		}
-		return timeInterval;
 	}
 }
